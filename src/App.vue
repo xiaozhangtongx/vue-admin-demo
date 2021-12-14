@@ -10,7 +10,7 @@
   height: 100vh;
 }
 #nprogress .bar {
-  background: #b21fc5 !important; //自定义颜色
+  background: green !important; //自定义颜色
 }
 #nprogress .spinner {
   display: none !important; // 进度条加载的右边的圆圈让不显示

@@ -1,7 +1,13 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside>
+        <div class="logo">
+          <img src="../assets/logo.png" alt="" style="width:64px">
+          <h1>x x x 系 统</h1>
+        </div>
+        <SideMenu />
+      </el-aside>
       <el-container>
         <el-header>
           <Header />
@@ -14,7 +20,8 @@
 </template>
 
 <script>
-import Header from '@/layout/Header'
+import Header from '@/layout/header/Header'
+import SideMenu from '@/layout/SideMenu'
 export default {
   name: '',
   data() {
@@ -23,6 +30,7 @@ export default {
   methods: {},
   components: {
     Header,
+    SideMenu,
   },
 }
 </script>
@@ -40,6 +48,18 @@ export default {
     background-color: #282c34;
     z-index: 999;
     box-shadow: 2px 0 6px rgb(150, 150, 150);
+    .logo {
+      height: 14vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      overflow: hidden;
+      h1 {
+        font-size: 30px;
+        color: #fff;
+        font-family: 'Arial', 'Microsoft YaHei', '黑体', '宋体', sans-serif;
+      }
+    }
   }
   .el-main {
     background-color: #f6f8f9;
