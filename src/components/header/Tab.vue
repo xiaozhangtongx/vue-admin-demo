@@ -1,8 +1,9 @@
 <template>
   <div class="tab1">
-    <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
-      <el-tab-pane v-for="(item) in editableTabs" :key="item.name" :label="item.title"
-        :name="item.name">
+    <el-tabs v-model="editableTabsValue" v-for="(item) in editableTabs" :key="item.name"
+      @tab-click="changerouter(item)" type="card" @tab-remove="removeTab(item.title)">
+      <el-tab-pane :name="item.name" :closable="item.close">
+        <span slot="label"><i class="el-icon-date"></i>{{item.title}}</span>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -10,49 +11,29 @@
 <script>
 export default {
   data() {
-    return {
-      editableTabsValue: '2',
-      editableTabs: [
-        {
-          title: 'Tab 1',
-          name: '1',
-          content: 'Tab 1 content',
-        },
-        {
-          title: 'Tab 2',
-          name: '2',
-          content: 'Tab 2 content',
-        },
-      ],
-      tabIndex: 2,
-    }
+    return {}
+  },
+  computed: {
+    editableTabs() {
+      return this.$store.state.tableTabs.editableTabs
+    },
+    editableTabsValue: {
+      get() {
+        return this.$store.state.tableTabs.editableTabsValue
+      },
+      set(val) {
+        this.$store.state.tableTabs.editableTabsValue = val
+      },
+    },
   },
   methods: {
-    addTab(targetName) {
-      let newTabName = ++this.tabIndex + ''
-      this.editableTabs.push({
-        title: 'New Tab',
-        name: newTabName,
-        content: 'New Tab content',
-      })
-      this.editableTabsValue = newTabName
-    },
     removeTab(targetName) {
-      let tabs = this.editableTabs
-      let activeName = this.editableTabsValue
-      if (activeName === targetName) {
-        tabs.forEach((tab, index) => {
-          if (tab.name === targetName) {
-            let nextTab = tabs[index + 1] || tabs[index - 1]
-            if (nextTab) {
-              activeName = nextTab.name
-            }
-          }
-        })
-      }
-
-      this.editableTabsValue = activeName
-      this.editableTabs = tabs.filter((tab) => tab.name !== targetName)
+      console.log(1)
+      this.$store.commit('removeTab', targetName)
+    },
+    changerouter(item) {
+      console.log(item.router)
+      this.$router.push(item.router)
     },
   },
 }
@@ -62,6 +43,7 @@ export default {
 .tab1 {
   width: 100%;
   height: 80%;
+  display: flex;
 }
 /deep/.el-tabs--card > .el-tabs__header .el-tabs__nav {
   width: 100%;
@@ -77,6 +59,9 @@ export default {
 }
 /deep/.el-tabs__item {
   border: 1px solid #d8dce5;
-  margin-left: 5px;
+  margin-left: 10px;
+}
+/deep/.el-tabs--card > .el-tabs__header {
+  border: none;
 }
 </style>

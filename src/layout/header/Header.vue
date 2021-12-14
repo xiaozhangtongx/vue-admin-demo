@@ -12,7 +12,6 @@
         <i class="el-icon-full-screen icon"></i>
         <i class="el-icon-refresh icon"></i>
         <Dropdown />
-
       </li>
     </div>
     <div class="h-bottom">
@@ -36,6 +35,7 @@ export default {
     // 侧边菜单栏折叠
     fold() {
       this.isfold = !this.isfold
+      this.$store.commit('collapse')
     },
   },
   components: {

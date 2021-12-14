@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-container>
-      <el-aside>
+      <el-aside :width="isCollapse?'65px':'200px'">
         <div class="logo">
           <img src="../assets/logo.png" alt="" style="width:64px">
-          <h1>x x x 系 统</h1>
+          <h1>xx管理系统</h1>
         </div>
         <SideMenu />
       </el-aside>
@@ -13,7 +13,7 @@
           <Header />
         </el-header>
         <el-main>Main</el-main>
-        <el-footer>Footer</el-footer>
+        <el-footer>xxxx ©2021 Created by xiaozhangtx</el-footer>
       </el-container>
     </el-container>
   </div>
@@ -26,6 +26,11 @@ export default {
   name: '',
   data() {
     return {}
+  },
+  computed: {
+    isCollapse() {
+      return this.$store.state.isCollapse
+    },
   },
   methods: {},
   components: {
@@ -52,10 +57,10 @@ export default {
       height: 14vh;
       display: flex;
       align-items: center;
-      justify-content: space-evenly;
+      // justify-content: space-evenly;
       overflow: hidden;
       h1 {
-        font-size: 30px;
+        font-size: 24px;
         color: #fff;
         font-family: 'Arial', 'Microsoft YaHei', '黑体', '宋体', sans-serif;
       }
@@ -68,6 +73,9 @@ export default {
     height: 6vh !important;
     border-top: 1px dashed #dcdfe6;
     color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
