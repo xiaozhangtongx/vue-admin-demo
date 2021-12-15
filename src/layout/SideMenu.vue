@@ -1,8 +1,7 @@
 <template>
   <div>
     <el-menu :default-active="editableTabs" class="el-menu-vertical-demo" background-color="#282C34"
-      text-color="#fff" active-text-color="#0DBC79" :collapse="isCollapse" :router="true"
-      :collapse-transition="false">
+      text-color="#fff" :collapse="isCollapse" :router="true" :collapse-transition="false">
 
       <el-menu-item v-for="item in  menu" :index="item.path" :key="item.path">
         <i class="el-icon-menu"></i>
@@ -100,5 +99,12 @@ export default {
 <style scoped lang='less'>
 .el-menu {
   border: 0;
+}
+.el-menu-item.is-active {
+  background-color: #1890ff !important;
+  color: #fff;
+  span {
+    color: #fff !important;
+  }
 }
 </style>
