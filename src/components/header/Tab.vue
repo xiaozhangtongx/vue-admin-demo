@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-12-14 20:43:34
+ * @LastEditTime: 2021-12-15 18:50:17
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \db\src\components\header\Tab.vue
+-->
 <template>
   <div class="tab1">
     <el-tabs v-model="editableTabsValue" v-for="(item) in editableTabs" :key="item.name"
@@ -50,18 +58,29 @@ export default {
   border: none;
 }
 /deep/ .el-tabs__item.is-active {
-  background-color: #42b983;
-  color: #fff;
-  border-color: #42b983;
+  color: #1890ff !important;
+  background: #e8f4ff !important;
 }
 /deep/.el-tabs__header {
   margin: 0;
 }
-/deep/.el-tabs__item {
-  border: 1px solid #d8dce5;
-  margin-left: 10px;
-}
 /deep/.el-tabs--card > .el-tabs__header {
   border: none;
+}
+/deep/.el-tabs__header .el-tabs__item.is-active,
+/deep/.el-tabs__header .el-tabs__item.is-active:hover,
+/deep/.el-tabs__header .el-tabs__item:hover {
+  // padding: 0 30px 0 30px;
+  -webkit-mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANoAAAAkBAMAAAAdqzmBAAAAMFBMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlTPQ5AAAAD3RSTlMAr3DvEM8wgCBA379gj5//tJBPAAAAnUlEQVRIx2NgAAM27fj/tAO/xBsYkIHyf9qCT8iWMf6nNQhAsk2f5rYheY7Dnua2/U+A28ZEe8v+F9Ax2v7/F4DbxkUH2wzgtvHTwbYPo7aN2jZq26hto7aN2jZq25Cy7Qvctnw62PYNbls9HWz7S8/G6//PsI6H4396gAUQy1je08W2jxDbpv6nD4gB2uWp+J9eYPsEhv/0BPS1DQBvoBLVZ3BppgAAAABJRU5ErkJggg==);
+  mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANoAAAAkBAMAAAAdqzmBAAAAMFBMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlTPQ5AAAAD3RSTlMAr3DvEM8wgCBA379gj5//tJBPAAAAnUlEQVRIx2NgAAM27fj/tAO/xBsYkIHyf9qCT8iWMf6nNQhAsk2f5rYheY7Dnua2/U+A28ZEe8v+F9Ax2v7/F4DbxkUH2wzgtvHTwbYPo7aN2jZq26hto7aN2jZq25Cy7Qvctnw62PYNbls9HWz7S8/G6//PsI6H4396gAUQy1je08W2jxDbpv6nD4gB2uWp+J9eYPsEhv/0BPS1DQBvoBLVZ3BppgAAAABJRU5ErkJggg==);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+/deep/ .el-tabs__header .el-tabs__item {
+  transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+}
+/deep/.el-tabs__header .el-tabs__item:hover {
+  color: #515a6e;
+  background: #dee1e6;
 }
 </style>

@@ -1,13 +1,21 @@
 <template>
   <div>
     <el-container>
-      <el-aside :width="isCollapse?'65px':'200px'">
+      <!-- <el-aside :width="isCollapse?'65px':'200px'" v-show="drawer">
         <div class="logo">
           <img src="../assets/logo.png" alt="" style="width:64px">
           <h1>xx管理系统</h1>
         </div>
         <SideMenu />
-      </el-aside>
+      </el-aside> -->
+      <el-drawer title="我是标题" :visible.sync="drawer" :with-header="false"
+        :size="isCollapse?'65px':'200px'" direction="ltr" id="menuDrawer" :modal="false">
+        <div class="logo">
+          <img src="../assets/logo.png" alt="" style="width:64px">
+          <h1>xx管理系统</h1>
+        </div>
+        <SideMenu />
+      </el-drawer>
       <el-container>
         <el-header>
           <Header />
@@ -25,13 +33,28 @@ import SideMenu from '@/layout/SideMenu'
 export default {
   name: '',
   data() {
-    return {}
+    return {
+      size: '400px',
+      drawer: true,
+    }
   },
   computed: {
     isCollapse() {
       return this.$store.state.isCollapse
     },
   },
+  // created() {
+  //   // 这里用了 箭头函数 其实可以不用 that 了，但是由于写 Es5 的习惯我就没改
+  //   // 核心方法，主要 根据窗口的变化 来控制布局
+  //   window.onresize = () => {
+  //     window.screenWidth = document.body.clientWidth
+  //     // 第二步
+  //     screenWidth = window.screenWidth
+  //     if (screenWidth < 800) this.drawer = true
+  //     console.log(screenWidth)
+  //   }
+  //   window.onresize()
+  // },
   methods: {},
   components: {
     Header,
@@ -67,7 +90,7 @@ export default {
     }
   }
   .el-main {
-    background-color: #f6f8f9;
+    background-color: #eff1f4;
   }
   .el-footer {
     height: 6vh !important;
@@ -77,5 +100,30 @@ export default {
     justify-content: center;
     align-items: center;
   }
+}
+#menuDrawer {
+  // width: 200px;
+  z-index: 1000;
+  // position: relative;
+  // height: 100%;
+  // width: 100%;
+  /deep/.el-drawer__body {
+    height: 100%;
+    background: #282c34;
+  }
+  /deep/.el-scrollbar .el-scrollbar__wrap {
+    overflow-x: hidden;
+    margin-right: -18px !important;
+  }
+}
+/deep/.el-drawer__wrapper {
+  width: 200px;
+  position: relative;
+  // top: 0;
+  /* right: 0; */
+  /* bottom: 0; */
+  // left: 0;
+  /* overflow: hidden; */
+  /* margin: 0; */
 }
 </style>
