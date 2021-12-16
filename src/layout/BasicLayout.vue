@@ -1,21 +1,28 @@
 <template>
   <div>
-    <el-container>
-      <!-- <el-aside :width="isCollapse?'65px':'200px'" v-show="drawer">
+    <el-container class="main">
+
+      <!-- <div v-if="drawer"> -->
+      <!-- <el-drawer title="我是标题" :visible="drawer" :with-header="false" direction="ltr" size='200px'
+        wrapperClosable=true id="menuDrawer">
         <div class="logo">
           <img src="../assets/logo.png" alt="" style="width:64px">
           <h1>xx管理系统</h1>
         </div>
         <SideMenu />
-      </el-aside> -->
-      <el-drawer title="我是标题" :visible.sync="drawer" :with-header="false"
-        :size="isCollapse?'65px':'200px'" direction="ltr" id="menuDrawer" :modal="false">
+      </el-drawer> -->
+      <!-- </div> -->
+
+      <!-- <div v-else> -->
+      <el-aside :width="isCollapse?'65px':'200px'" v-if="!drawer">
         <div class="logo">
           <img src="../assets/logo.png" alt="" style="width:64px">
           <h1>xx管理系统</h1>
         </div>
         <SideMenu />
-      </el-drawer>
+      </el-aside>
+      <!-- </div> -->
+
       <el-container>
         <el-header>
           <Header />
@@ -35,12 +42,20 @@ export default {
   data() {
     return {
       size: '400px',
-      drawer: true,
+      drawer1: this.drawer,
     }
   },
   computed: {
     isCollapse() {
       return this.$store.state.isCollapse
+    },
+    drawer: {
+      get() {
+        return this.$store.state.isMobile
+      },
+      set(val) {
+        return (this.$store.state.isMobile = val)
+      },
     },
   },
   // created() {
@@ -67,6 +82,7 @@ export default {
 .el-container {
   width: 100vw;
   height: 100vh;
+  // overflow: hidden;
   .el-header {
     height: 14vh !important;
     z-index: 888;
@@ -99,6 +115,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1vw;
   }
 }
 #menuDrawer {
@@ -115,15 +132,5 @@ export default {
     overflow-x: hidden;
     margin-right: -18px !important;
   }
-}
-/deep/.el-drawer__wrapper {
-  width: 200px;
-  position: relative;
-  // top: 0;
-  /* right: 0; */
-  /* bottom: 0; */
-  // left: 0;
-  /* overflow: hidden; */
-  /* margin: 0; */
 }
 </style>

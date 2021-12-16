@@ -25,7 +25,7 @@ const routes = [
       {
         path: '/main/home',
         name: 'Home',
-        meta: { icon: 'home', title: '系统首页', authority: ['admin', 'user'] },
+        meta: { icon: 'home', title: '首页', authority: ['admin', 'user'] },
         component: () => import('@/views/main/home/Home.vue'),
       },
       // 用户管理页面
@@ -39,40 +39,45 @@ const routes = [
         name: 'Users',
         component: () => import('@/views/main/home/Home.vue'),
       },
-      // 管理员文章管理页面
+      // 购物页面
       {
-        path: '/main/aarticles',
+        path: '/main/shop',
         meta: {
           icon: 'read',
-          title: '文章管理',
-          authority: ['admin'],
-        },
-        name: 'Aarticles',
-        component: () => import('@/views/main/home/Home.vue'),
-      },
-      // 用户文章详细信息页面
-      {
-        path: '/main/articles',
-        hideInMenu: true,
-        component: () => import('@/views/main/home/Home.vue'),
-      },
-      // 用户个人文章管理页面
-      {
-        path: '/main/uarticles',
-        meta: {
-          icon: 'read',
-          title: '文章管理',
+          title: '发现',
           authority: ['user'],
         },
-        name: 'Uarticles',
+        name: 'Shop',
+        component: () => import('@/views/main/home/Home.vue'),
+      },
+      // 购物车界面
+      {
+        path: '/main/shopcart',
+        meta: {
+          icon: 'read',
+          title: '购物车',
+          authority: ['user'],
+        },
+        name: 'Shopcart',
+        component: () => import('@/views/main/home/Home.vue'),
+      },
+      // 订单页面
+      {
+        path: '/main/orders',
+        meta: {
+          icon: 'read',
+          title: '订单',
+          authority: ['user'],
+        },
+        name: 'Orders',
         component: () => import('@/views/main/home/Home.vue'),
       },
       // 个人中心页面
       {
-        path: '/main/account',
+        path: '/main/my',
         meta: {
           icon: 'user',
-          title: '个人中心',
+          title: '我的',
           authority: ['user', 'admin'],
         },
         name: 'Accounts',

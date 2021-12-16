@@ -28,6 +28,29 @@ export default {
       sessionStorage.setItem('store', JSON.stringify(this.$store.state))
     })
   },
+  methods: {
+    getScreen() {
+      let clientWidth = document.documentElement.clientWidth || document.body.clientHeight
+      if (clientWidth < 768) {
+        //当屏幕小于768时，设置Vuex里的数据为true
+        this.$store.commit('SET_MOBLIE', true)
+      } else {
+        //反之，设置Vuex里的数据为false
+        this.$store.commit('SET_MOBLIE', false)
+      }
+    },
+    setMobile() {
+      //监听屏幕
+      addEventListener('resize', () => {
+        this.getScreen()
+        console.log(1)
+      })
+    },
+  },
+
+  mounted() {
+    this.setMobile()
+  },
 }
 </script>
 

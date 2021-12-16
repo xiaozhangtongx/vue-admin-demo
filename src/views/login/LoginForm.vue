@@ -45,6 +45,7 @@ export default {
             title: '你好呀,XXX!',
             message: '欢迎登录XXX系统',
             type: 'success',
+            offset: 100,
           })
         } else {
           console.log('error submit!!')

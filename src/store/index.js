@@ -10,7 +10,7 @@ export default new Vuex.Store({
       editableTabsValue: '/main/home',
       editableTabs: [
         {
-          title: '系统首页',
+          title: '首页',
           router: '/main/home',
           name: '/main/home',
           close: false,
@@ -18,6 +18,7 @@ export default new Vuex.Store({
         },
       ],
     },
+    isMobile: false,
   },
   mutations: {
     // 是否折叠
@@ -46,6 +47,11 @@ export default new Vuex.Store({
       )
       state.tableTabs.editableTabsValue =
         state.tableTabs.editableTabs.slice(-1)[0].name
+    },
+    // 判断是不是手机端
+    SET_MOBLIE(state, isMobile) {
+      state.isMobile = isMobile
+      console.log(isMobile)
     },
   },
   actions: {
