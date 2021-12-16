@@ -4,7 +4,7 @@
       text-color="#fff" :collapse="isCollapse" :router="true" :collapse-transition="false">
 
       <el-menu-item v-for="item in  menu" :index="item.path" :key="item.path">
-        <i class="el-icon-menu"></i>
+        <i :class="item.meta.icon"></i>
         <span slot="title">{{item.meta.title}}</span>
       </el-menu-item>
     </el-menu>
@@ -107,5 +107,4 @@ export default {
     color: #fff !important;
   }
 }
-
 </style>

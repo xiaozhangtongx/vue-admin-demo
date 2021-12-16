@@ -25,7 +25,11 @@ const routes = [
       {
         path: '/main/home',
         name: 'Home',
-        meta: { icon: 'home', title: '首页', authority: ['admin', 'user'] },
+        meta: {
+          icon: 'el-icon-s-home',
+          title: '首页',
+          authority: ['admin', 'user'],
+        },
         component: () => import('@/views/main/home/Home.vue'),
       },
       // 用户管理页面
@@ -43,18 +47,18 @@ const routes = [
       {
         path: '/main/shop',
         meta: {
-          icon: 'read',
+          icon: 'el-icon-shopping-bag-1',
           title: '发现',
           authority: ['user'],
         },
         name: 'Shop',
-        component: () => import('@/views/main/home/Home.vue'),
+        component: () => import('@/views/main/shop/Shop.vue'),
       },
       // 购物车界面
       {
         path: '/main/shopcart',
         meta: {
-          icon: 'read',
+          icon: 'el-icon-shopping-cart-2',
           title: '购物车',
           authority: ['user'],
         },
@@ -65,7 +69,7 @@ const routes = [
       {
         path: '/main/orders',
         meta: {
-          icon: 'read',
+          icon: 'el-icon-tickets',
           title: '订单',
           authority: ['user'],
         },
@@ -76,7 +80,7 @@ const routes = [
       {
         path: '/main/my',
         meta: {
-          icon: 'user',
+          icon: 'el-icon-s-custom',
           title: '我的',
           authority: ['user', 'admin'],
         },

@@ -43,7 +43,7 @@ export default {
           this.$router.push('/main/home')
           this.$notify({
             title: '你好呀,XXX!',
-            message: '欢迎登录XXX系统',
+            message: '欢迎登录订货系统',
             type: 'success',
             offset: 100,
           })

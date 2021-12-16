@@ -2,7 +2,7 @@
   <div class="login">
     <div class="loginform">
       <h1>Hello !</h1>
-      <h2>欢迎来到XXXX系统</h2>
+      <h2>欢迎来到订货系统</h2>
       <LoginForm />
     </div>
   </div>

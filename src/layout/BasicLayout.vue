@@ -17,18 +17,19 @@
       <el-aside :width="isCollapse?'65px':'200px'" v-if="!drawer">
         <div class="logo">
           <img src="../assets/logo.png" alt="" style="width:64px">
-          <h1>xx管理系统</h1>
+          <h1>订货系统</h1>
         </div>
         <SideMenu />
       </el-aside>
       <!-- </div> -->
-
       <el-container>
         <el-header>
           <Header />
         </el-header>
-        <el-main>Main</el-main>
-        <el-footer>xxxx ©2021 Created by xiaozhangtx</el-footer>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+        <el-footer>订货系统 ©2021 Created by xiaozhangtx</el-footer>
       </el-container>
     </el-container>
   </div>
@@ -107,6 +108,8 @@ export default {
   }
   .el-main {
     background-color: #eff1f4;
+    width: 100%;
+    height: 100%;
   }
   .el-footer {
     height: 6vh !important;

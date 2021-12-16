@@ -14,7 +14,7 @@ export default new Vuex.Store({
           router: '/main/home',
           name: '/main/home',
           close: false,
-          icon: '',
+          icon: 'el-icon-s-home',
         },
       ],
     },

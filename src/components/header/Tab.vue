@@ -3,7 +3,7 @@
     <el-tabs v-model="editableTabsValue" v-for="(item) in editableTabs" :key="item.name"
       @tab-click="changerouter(item)" type="card" @tab-remove="removeTab(item.title)">
       <el-tab-pane :name="item.name" :closable="item.close">
-        <span slot="label"><i class="el-icon-date"></i>{{item.title}}</span>
+        <span slot="label"><i :class="item.icon"></i>{{item.title}}</span>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -15,6 +15,7 @@ export default {
   },
   computed: {
     editableTabs() {
+      console.log(this.$store.state.tableTabs.editableTabs)
       return this.$store.state.tableTabs.editableTabs
     },
     editableTabsValue: {
