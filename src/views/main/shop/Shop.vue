@@ -4,31 +4,30 @@
       <div class="searchlabel">
         <li><strong> <i class="el-icon-search"></i> 筛选搜索</strong></li>
         <li>
-          <el-button type="info" @click="onSubmit" size="small">重置</el-button>
-          <el-button type="primary" @click="onSubmit" size="small">查询</el-button>
-
+          <el-button type="info" @click="resetForm" size="small">重置</el-button>
+          <el-button type="primary" @click="getGoodList" size="small">查询</el-button>
         </li>
       </div>
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form :inline="true" :model="formInline" ref="goodsearch" class="demo-form-inline">
         <el-form-item label="商品名称：">
-          <el-input v-model="formInline.user" placeholder="请输入商品名称"></el-input>
+          <el-input v-model="formInline.gname" placeholder="请输入商品名称"></el-input>
         </el-form-item>
         <el-form-item label="商品货号：">
-          <el-input v-model="formInline.user" placeholder="请输入商品货号"></el-input>
+          <el-input v-model="formInline.gid" placeholder="请输入商品货号"></el-input>
         </el-form-item>
         <el-form-item label="商品分类：">
-          <el-select v-model="formInline.region" placeholder="请选择">
-            <el-option label="服装" value="shanghai"></el-option>
-            <el-option label="手机数码" value="beijing"></el-option>
-            <el-option label="家用电器" value="beijing"></el-option>
-            <el-option label="家具家装" value="beijing"></el-option>
+          <el-select v-model="formInline.kinds" placeholder="请选择">
+            <el-option label="服装" value="服装"></el-option>
+            <el-option label="手机数码" value="手机数码"></el-option>
+            <el-option label="家用电器" value="家用电器"></el-option>
+            <el-option label="家具家装" value="家具家装"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
       <div class="searchlabel">
         <li><strong> <i class="el-icon-goods"></i> 商品信息</strong></li>
       </div>
-      <GoodsTable />
+      <GoodsTable ref="goodTable" />
     </el-card>
   </div>
 </template>
@@ -40,8 +39,9 @@ export default {
   data() {
     return {
       formInline: {
-        user: '',
-        region: '',
+        gname: '',
+        gid: '',
+        kinds: '',
       },
     }
   },
@@ -49,8 +49,15 @@ export default {
     GoodsTable,
   },
   methods: {
-    onSubmit() {
-      console.log('submit!')
+    resetForm() {
+      this.formInline.gname = ''
+      this.formInline.gid = ''
+      this.formInline.kinds = ''
+    },
+    getGoodList() {
+      console.log(this.formInline)
+      console.log(this.$refs.goodTable)
+      this.$refs.goodTable.getGoodLists(this.formInline)
     },
   },
 }

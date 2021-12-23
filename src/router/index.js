@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import findLast from 'lodash/findLast'
+import { check, isLogin } from '../utils/auth'
 
 Vue.use(VueRouter)
 
@@ -63,7 +65,7 @@ const routes = [
           authority: ['user'],
         },
         name: 'Shopcart',
-        component: () => import('@/views/main/home/Home.vue'),
+        component: () => import('@/views/main/shopcart/Shopcart.vue'),
       },
       // 订单页面
       {
@@ -118,6 +120,26 @@ VueRouter.prototype.push = function push(to) {
 router.beforeEach((to, from, next) => {
   if (to.path != from.path) {
     NProgress.start()
+  }
+  if (to.path == '/login' || to.path == '/register') return next()
+  const store = window.sessionStorage.getItem('store')
+  var storeobj = JSON.parse(store)
+  console.log(storeobj)
+  if (storeobj.user == null) {
+    next('/login')
+  }
+  const record = findLast(to.matched, (record) => record.meta.authority)
+  if (record && !check(record.meta.authority)) {
+    if (!isLogin() && to.path !== '/login') {
+      next({
+        path: '/login',
+      })
+    } else if (to.path !== '/401') {
+      next({
+        path: '/401',
+      })
+    }
+    NProgress.done()
   }
   next()
 })

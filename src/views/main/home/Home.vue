@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="home">
     <h1>系统首页</h1>
+    <h1>欢迎{{user.uname}}</h1>
   </div>
 </template>
 
@@ -8,11 +9,20 @@
 export default {
   name: '',
   data() {
-    return {}
+    return {
+      user: this.$store.state.user,
+    }
   },
   methods: {},
 }
 </script>
 
 <style scoped lang='less'>
+.home {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+}
 </style>

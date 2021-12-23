@@ -3,11 +3,11 @@
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
       <el-form-item prop="uid">
         <el-input placeholder="请输入您的账号" prefix-icon="el-icon-s-custom" v-model="ruleForm.uid"
-          autocomplete="off" @keyup.enter.native="focusNext('upwd')"></el-input>
+          autocomplete="off" @keyup.enter.native="focusNext('upward')"></el-input>
       </el-form-item>
-      <el-form-item prop="upwd">
+      <el-form-item prop="upward">
         <el-input placeholder="请输入您的密码" prefix-icon="el-icon-lock" type="password" show-password
-          v-model="ruleForm.upwd" autocomplete="off" ref="upwd"
+          v-model="ruleForm.upward" autocomplete="off" ref="upward"
           @keyup.enter.native="submitForm('ruleForm')">
         </el-input>
       </el-form-item>
@@ -24,12 +24,12 @@ export default {
   data() {
     return {
       ruleForm: {
-        uid: '',
-        upwd: '',
+        uid: '100001',
+        upward: '123456',
       },
       rules: {
         uid: [{ required: true, message: '请输入您的账号', trigger: 'blur' }],
-        upwd: [
+        upward: [
           { required: true, message: '请输入您的密码', trigger: 'blur' },
           { len: 6, message: '请输入长度为6位的密码', trigger: 'blur' },
         ],
@@ -38,15 +38,23 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          this.$router.push('/main/home')
-          this.$notify({
-            title: '你好呀,XXX!',
-            message: '欢迎登录订货系统',
-            type: 'success',
-            offset: 100,
-          })
+          const { data: res } = await this.$http.post('login', this.ruleForm)
+          if (res.code == 200) {
+            this.$store.dispatch('saveUserInfo', res.obj[0])
+            sessionStorage.setItem('store', JSON.stringify(this.$store.state))
+            this.$router.push('/main/home')
+            console.log(res)
+            this.$notify({
+              title: '你好呀,' + res.obj[0].uname,
+              message: '欢迎登录订货系统',
+              type: 'success',
+              offset: 100,
+            })
+          } else {
+            return this.$message.error(res.message)
+          }
         } else {
           console.log('error submit!!')
           return false

@@ -19,6 +19,7 @@ export default new Vuex.Store({
       ],
     },
     isMobile: false,
+    user: '',
   },
   mutations: {
     // 是否折叠
@@ -53,6 +54,10 @@ export default new Vuex.Store({
       state.isMobile = isMobile
       console.log(isMobile)
     },
+    // 保存用户信息
+    USER_INFO(state, info) {
+      state.user = info
+    },
   },
   actions: {
     addTab: ({ commit }, data) => {
@@ -60,6 +65,9 @@ export default new Vuex.Store({
     },
     removeTab: ({ commit }, targetName) => {
       commit('removeTab', targetName)
+    },
+    saveUserInfo({ commit }, data) {
+      commit('USER_INFO', data)
     },
   },
   modules: {},

@@ -28,7 +28,7 @@ export default {
     let menuData = this.getMenuData(this.$router.options.routes)
     // console.log(menuData)
     const menu = menuData[0].children
-    console.log(menu)
+    // console.log(menu)
     return {
       menu,
       selectedKeys: this.selectedKeysMap[this.$route.path],

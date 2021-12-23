@@ -26,7 +26,11 @@ export default {
   },
   methods: {
     handleCommand(command) {
-      this.$router.push(command)
+      if (command == '/login') {
+        window.sessionStorage.clear()
+        this.$store.dispatch('saveUserInfo', null)
+        this.$router.replace(command)
+      }
       // this.$message('click on item ' + command)
     },
   },

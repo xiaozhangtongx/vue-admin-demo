@@ -7,7 +7,9 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "core-js": "^3.19.3",
+    "element-china-area-data": "^5.0.2",
     "element-ui": "^2.15.6",
     "nprogress": "^0.2.0",
     "vue": "^2.6.11",
