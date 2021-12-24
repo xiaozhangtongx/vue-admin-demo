@@ -76,7 +76,14 @@ const routes = [
           authority: ['user'],
         },
         name: 'Orders',
-        component: () => import('@/views/main/home/Home.vue'),
+        component: () => import('@/views/main/order/Order.vue'),
+      },
+      //订单详情
+      {
+        path: '/main/smallList',
+        name: 'SmallList',
+        hideInMenu: true,
+        component: () => import('@/views/main/small/SmallList.vue'),
       },
       // 个人中心页面
       {

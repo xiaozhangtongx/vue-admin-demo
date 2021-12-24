@@ -28,7 +28,7 @@
     </el-table>
     <li class="money">
       <span><strong>应支付：{{total}} 元</strong></span>
-      <el-button type="danger" round size="small" @click="check_out">
+      <el-button type="danger" round size="small" @click="check_out" :disabled="disables">
         下 单
       </el-button>
     </li>
@@ -52,6 +52,11 @@ export default {
   },
   created() {
     this.getGoodList()
+  },
+  computed: {
+    disables() {
+      return this.total <= 0
+    },
   },
   methods: {
     // 获得商品列表
@@ -80,7 +85,8 @@ export default {
     // 提交订单
     check_out() {
       console.log(this.multipleSelection)
-      this.$refs.take_out.showDialog()
+      this.$refs.take_out.showDialog(this.multipleSelection)
+      this.multipleSelection = []
     },
     // 添加货物的数量
     handleChange(obj) {
