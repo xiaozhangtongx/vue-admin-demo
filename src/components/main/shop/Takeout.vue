@@ -12,7 +12,7 @@
           <el-input v-model="ruleForm.datailAddress"></el-input>
         </el-form-item>
         <el-form-item label="总共金额">
-          <strong style="color:red"> {{total}} 元</strong>
+          <strong style="color:red"> {{total}} 元(折扣后)</strong>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">结算</el-button>
@@ -67,7 +67,7 @@ export default {
     showDialog(smallout, total) {
       console.log(smallout)
       this.dialogVisible = true
-      this.total = total
+      this.total = total * this.gestInfo.cheap
       // this.$set(this.listout.Smallout, null, smallout)
       this.listout.Smallout = Object.assign([], smallout)
     },

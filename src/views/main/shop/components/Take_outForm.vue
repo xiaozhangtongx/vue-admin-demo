@@ -15,7 +15,8 @@
           <el-input v-model="ruleForm.datailAddress"></el-input>
         </el-form-item>
         <el-form-item label="总共金额">
-          <strong style="color:red"> {{ruleForm.gnum*listout.Smallout[0].price}} 元</strong>
+          <strong style="color:red"> {{ruleForm.gnum*listout.Smallout[0].price*gestInfo.cheap}}
+            元(折扣后)</strong>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">结算</el-button>
@@ -171,7 +172,7 @@ export default {
   computed: {
     getTotalMoney() {
       // console.log(this.ruleForm.gnum * this.listout.Smallout[0].price)
-      return this.ruleForm.gnum * this.listout.Smallout[0].price
+      return this.ruleForm.gnum * this.listout.Smallout[0].price * this.gestInfo.cheap
     },
   },
 }

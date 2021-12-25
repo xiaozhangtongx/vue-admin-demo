@@ -10,7 +10,7 @@
           <i class="el-icon-bell"></i>
         </el-badge>
         <i class="el-icon-full-screen icon"></i>
-        <i class="el-icon-refresh icon"></i>
+        <i class="el-icon-refresh icon" @click="refresh"></i>
         <Dropdown />
       </li>
     </div>
@@ -36,6 +36,10 @@ export default {
     fold() {
       this.isfold = !this.isfold
       this.$store.commit('collapse')
+    },
+    // 刷新页面
+    refresh() {
+      window.location.reload()
     },
   },
   components: {

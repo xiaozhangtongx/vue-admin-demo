@@ -18,6 +18,11 @@ const routes = [
     component: () => import('@/views/login/Login.vue'),
   },
   {
+    hideInMenu: true,
+    path: '/register',
+    component: () => import('@/views/register/Register.vue'),
+  },
+  {
     path: '/main',
     redirect: '/main/home',
     name: 'Main',

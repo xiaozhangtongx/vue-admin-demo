@@ -28,7 +28,7 @@
         <el-table-column prop="name" label="商品名称" align="center" />
         <el-table-column prop="maker" label="生产厂商" align="center" />
         <el-table-column prop="gnum" label="订货数量" align="center" />
-        <el-table-column label="单价" align="center">
+        <el-table-column label="原价/件" align="center">
           <template slot-scope="scope">
             ￥ {{scope.row.price}}
           </template>
@@ -36,6 +36,11 @@
         <el-table-column label="总额" align="center">
           <template slot-scope="scope">
             ￥ {{scope.row.money}}
+          </template>
+        </el-table-column>
+        <el-table-column label="折扣后" align="center">
+          <template slot-scope="scope">
+            ￥ {{scope.row.money*gestInfo.cheap}}
           </template>
         </el-table-column>
       </el-table>

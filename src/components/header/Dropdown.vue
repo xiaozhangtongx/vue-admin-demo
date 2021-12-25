@@ -8,7 +8,7 @@
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="a">
+        <el-dropdown-item command="/main/my">
           <i class="el-icon-s-custom">个人中心</i>
         </el-dropdown-item>
         <el-dropdown-item command="/login"> <i class="el-icon-switch-button">退出登录</i>
@@ -29,8 +29,8 @@ export default {
       if (command == '/login') {
         window.sessionStorage.clear()
         this.$store.dispatch('saveUserInfo', null)
-        this.$router.replace(command)
       }
+      this.$router.replace(command)
       // this.$message('click on item ' + command)
     },
   },
