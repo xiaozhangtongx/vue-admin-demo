@@ -1,7 +1,14 @@
 <template>
   <div id="shopcart">
     <el-card class="box-card">
-      <el-descriptions title="订单详细信息">
+      <div class="searchlabel">
+        <li><strong>订单详细信息</strong></li>
+        <li>
+          <el-button type="primary" @click="goBack" size="small">返回</el-button>
+          <el-button type="danger" @click="deletOrder" size="small">删除订单</el-button>
+        </li>
+      </div>
+      <el-descriptions>
         <el-descriptions-item label="订单号">{{listInfo.LNo}}</el-descriptions-item>
         <el-descriptions-item label="订货日期">{{listInfo.BDate}}</el-descriptions-item>
         <el-descriptions-item label="订单状态">
@@ -37,7 +44,6 @@
 </template>
 
 <script>
-import SmallListTable from '@/views/main/small/components/SmallListTable'
 export default {
   name: '',
   data() {
@@ -50,9 +56,6 @@ export default {
       },
       listOut: [],
     }
-  },
-  components: {
-    SmallListTable,
   },
   methods: {
     async getGuestInfo() {
@@ -74,6 +77,22 @@ export default {
         return this.$message.error(res.message)
       }
     },
+    // 返回订单页面
+    goBack() {
+      this.$router.go(-1)
+    },
+    // 删除订单
+    async deletOrder() {
+      console.log(this.infor.smallid)
+      const { data: res } = await this.$http.get('deletestout?smallid=' + this.infor.smallid)
+      this.$router.push('/main/orders')
+      if (res.code == 200) {
+        this.listOut = res.obj
+        return this.$message.success(res.message)
+      } else {
+        return this.$message.error(res.message)
+      }
+    },
   },
   created() {
     this.getGuestInfo()
@@ -88,5 +107,9 @@ export default {
 #shopcart {
   width: 100%;
   height: 100%;
+  .searchlabel {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>

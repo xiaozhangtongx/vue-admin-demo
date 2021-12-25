@@ -82,6 +82,11 @@ const routes = [
       {
         path: '/main/smallList',
         name: 'SmallList',
+        meta: {
+          icon: 'el-icon-tickets',
+          title: '细则',
+          authority: ['user'],
+        },
         hideInMenu: true,
         component: () => import('@/views/main/small/SmallList.vue'),
       },

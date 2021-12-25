@@ -2,13 +2,13 @@
   <div id="shopcart">
     <el-card class="box-card">
       <el-descriptions title="用户信息">
-        <el-descriptions-item label="用户名">{{gestInfo.uid}}</el-descriptions-item>
+        <el-descriptions-item label="账号">{{gestInfo.uid}}</el-descriptions-item>
         <el-descriptions-item label="余额">{{gestInfo.rest}}元</el-descriptions-item>
         <el-descriptions-item label="赊额">{{gestInfo.borrow}}元</el-descriptions-item>
         <el-descriptions-item label="折扣">{{gestInfo.cheap}}</el-descriptions-item>
         <el-descriptions-item label="地址">{{gestInfo.location}}</el-descriptions-item>
       </el-descriptions>
-      <li><strong> <i class="el-icon-tickets"></i> 订单</strong></li>
+      <li style="margin-top:20px"><strong> <i class="el-icon-tickets"></i> 订单</strong></li>
       <OrdaerTable />
     </el-card>
   </div>

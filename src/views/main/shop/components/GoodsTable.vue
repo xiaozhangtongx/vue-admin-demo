@@ -26,9 +26,9 @@
         <template slot-scope="scope">
           <div class="operation">
             <el-button type="warning" icon="el-icon-shopping-cart-2" style="font-size:20px"
-              @click="addShopCartNum(scope.row.GID)">
+              @click="addShopCartNum(scope.row)">
             </el-button>
-            <el-button type="danger" @click="confirmDelet(scope.row.name)">
+            <el-button type="danger" @click="takeOut(scope.row)">
               购买
             </el-button>
           </div>
@@ -40,11 +40,13 @@
       :current-page="infor.page" :page-size="infor.pageSize" :page-sizes="[1, 2, 3, 10]"
       layout="total, sizes, prev, pager, next, jumper" :total="total">
     </el-pagination>
-
+    <!-- 提交订单 -->
+    <Take_outForm ref="takeOutform" />
   </div>
 </template>
 
 <script>
+import Take_outForm from '@/views/main/shop/components/Take_outForm'
 export default {
   name: '',
   data() {
@@ -53,10 +55,11 @@ export default {
         gid: '',
         gname: '',
         kinds: '',
-        pageSize: 3,
+        pageSize: 2,
         page: 1,
       },
       goodList: [],
+      gestInfo: [],
       total: 0,
       shopcart: {
         uid: this.$store.state.user.uid,
@@ -67,8 +70,20 @@ export default {
   },
   created() {
     this.getGoodList()
+    this.getGuestInfo()
+  },
+  components: {
+    Take_outForm,
   },
   methods: {
+    // 获取顾客信息
+    async getGuestInfo() {
+      let uid = this.$store.state.user.uid
+      const { data: res } = await this.$http.get('getGestInfo?uid=' + uid)
+      this.gestInfo = res.obj[0]
+      console.log(this.gestInfo)
+      // console.log(res)
+    },
     // 获得商品列表
     async getGoodList() {
       const { data: res } = await this.$http.post('goods', this.infor)
@@ -113,14 +128,18 @@ export default {
         return this.$message.error(res.message)
       }
     },
-    addShopCartNum(gid) {
+    addShopCartNum(obj) {
       this.$prompt('请输入加入购物车的件数', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
       })
         .then(async ({ value }) => {
+          console.log(obj)
+          if (obj.GRest < value) {
+            return this.$message.error('货物库存不足')
+          }
           this.shopcart.gnum = value
-          this.shopcart.gid = gid
+          this.shopcart.gid = obj.GID
           this.addShopCart()
         })
         .catch(() => {
@@ -129,6 +148,10 @@ export default {
             message: '取消输入',
           })
         })
+    },
+    // 下单购买
+    takeOut(obj) {
+      this.$refs.takeOutform.showDialog(obj, this.gestInfo)
     },
   },
   filters: {
