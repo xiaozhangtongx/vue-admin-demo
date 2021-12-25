@@ -47,7 +47,7 @@ export default {
             this.$router.push('/main/home')
             console.log(res)
             this.$notify({
-              title: '你好呀,' + res.obj[0].uname,
+              title: '你好呀,' + res.obj[0].uid,
               message: '欢迎登录订货系统',
               type: 'success',
               offset: 100,

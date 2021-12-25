@@ -14,7 +14,7 @@
       <el-table-column label="详情信息" align="center">
         <template slot-scope="scope">
           {{scope.row.info|strSlice(scope.row.Maker)}}
-          <el-button type="text">详情</el-button>
+          <el-button type="text" @click="showGoodsInfo(scope.row)">详情</el-button>
         </template>
       </el-table-column>
       <el-table-column label="价格" align="center">
@@ -42,11 +42,14 @@
     </el-pagination>
     <!-- 提交订单 -->
     <Take_outForm ref="takeOutform" />
+    <!-- 商品详细信息 -->
+    <GoodsInfo ref="goodsInfo" />
   </div>
 </template>
 
 <script>
 import Take_outForm from '@/views/main/shop/components/Take_outForm'
+import GoodsInfo from '@/views/main/shop/components/GoodsInfo'
 export default {
   name: '',
   data() {
@@ -74,6 +77,7 @@ export default {
   },
   components: {
     Take_outForm,
+    GoodsInfo,
   },
   methods: {
     // 获取顾客信息
@@ -152,6 +156,10 @@ export default {
     // 下单购买
     takeOut(obj) {
       this.$refs.takeOutform.showDialog(obj, this.gestInfo)
+    },
+    // 展示详细信息
+    showGoodsInfo(obj) {
+      this.$refs.goodsInfo.showDialog(obj)
     },
   },
   filters: {

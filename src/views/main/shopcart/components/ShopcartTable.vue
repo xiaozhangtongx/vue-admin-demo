@@ -85,7 +85,7 @@ export default {
     // 提交订单
     check_out() {
       console.log(this.multipleSelection)
-      this.$refs.take_out.showDialog(this.multipleSelection)
+      this.$refs.take_out.showDialog(this.multipleSelection, this.total)
       this.multipleSelection = []
     },
     // 添加货物的数量

@@ -11,6 +11,9 @@
         <el-form-item label="详细地址" prop="datailAddress">
           <el-input v-model="ruleForm.datailAddress"></el-input>
         </el-form-item>
+        <el-form-item label="总共金额">
+          <strong style="color:red"> {{total}} 元</strong>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">结算</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -26,10 +29,12 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      total: 0,
       ruleForm: {
         address: '',
         datailAddress: '',
       },
+      gestInfo: {},
       listout: {
         SmallID: new Date().getTime(),
         Location: '',
@@ -46,14 +51,27 @@ export default {
       },
     }
   },
+  created() {
+    this.getGuestInfo()
+  },
   methods: {
+    // 获取顾客信息
+    async getGuestInfo() {
+      let uid = this.$store.state.user.uid
+      const { data: res } = await this.$http.get('getGestInfo?uid=' + uid)
+      this.gestInfo = res.obj[0]
+      this.ruleForm.datailAddress = this.gestInfo.location
+      console.log(this.gestInfo)
+    },
     // 展示对话框
-    showDialog(smallout) {
+    showDialog(smallout, total) {
       console.log(smallout)
       this.dialogVisible = true
+      this.total = total
       // this.$set(this.listout.Smallout, null, smallout)
       this.listout.Smallout = Object.assign([], smallout)
     },
+    // 确认是否关闭对话框
     handleClose(done) {
       this.$confirm('确认关闭？')
         .then((_) => {
@@ -61,30 +79,77 @@ export default {
         })
         .catch((_) => {})
     },
+    // 提交订单
     submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           this.listout.Location = this.ruleForm.address + this.ruleForm.datailAddress
-          console.log(this.listout)
-          const { data: res } = await this.$http.post('stout', this.listout)
-          // console.log(this.listout)
-          if (res.code == 200) {
-            this.resetForm('ruleForm')
-            this.dialogVisible = false
-            return this.$message.success(res.message)
+          if (this.total > this.gestInfo.rest) {
+            this.open()
+            return
           } else {
-            return this.$message.error(res.message)
+            console.log(this.gestInfo.rest)
+            this.gestInfo.rest = this.gestInfo.rest - this.total
+            console.log(this.gestInfo)
+            this.updateGestInfo()
+            this.tackOut()
           }
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })
     },
+    // 赊额
+    open() {
+      this.$confirm('你的余额不足是否使用赊额?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          if (this.gestInfo.rest + this.gestInfo.borrow < this.total) {
+            return this.$message({
+              type: 'error',
+              message: '你的赊额不足，下单失败',
+            })
+          } else {
+            this.tackOut()
+            this.gestInfo.borrow = this.gestInfo.borrow - this.total + this.gestInfo.rest
+            this.gestInfo.rest = 0
+            this.updateGestInfo()
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消支付',
+          })
+        })
+    },
+    // 提交订单
+    async tackOut() {
+      const { data: res } = await this.$http.post('stout', this.listout)
+      // console.log(this.listout)
+      if (res.code == 200) {
+        this.resetForm('ruleForm')
+        this.dialogVisible = false
+        return this.$message.success(res.message)
+      } else {
+        return this.$message.error(res.message)
+      }
+    },
+    // 更新顾客余额
+    async updateGestInfo() {
+      const { data: res } = await this.$http.post('upGesteInfo', this.gestInfo)
+      return this.$message.info(res.message)
+    },
+    // 重置订单
     resetForm(formName) {
       this.$refs[formName].resetFields()
       this.selectedOptions = null
     },
+    // 选择地址
     handleChange(value) {
       //我们选择地址后，selectedOptions 会保存对应的区域码，例如北京的区域码为'110000'
       //我们要取出区域码对应的汉字，就需要用CodeToText(区域码)进行输出

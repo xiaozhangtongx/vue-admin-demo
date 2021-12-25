@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>系统首页</h1>
-    <h1>欢迎{{user.uname}}</h1>
+    <h1>欢迎{{user.uid}}</h1>
   </div>
 </template>
 

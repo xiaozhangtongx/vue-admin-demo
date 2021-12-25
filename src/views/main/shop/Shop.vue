@@ -2,6 +2,7 @@
   <div id="shop">
     <el-card class="box-card">
       <div class="searchlabel">
+
         <li><strong> <i class="el-icon-search"></i> 筛选搜索</strong></li>
         <li>
           <el-button type="info" @click="resetForm" size="small">重置</el-button>

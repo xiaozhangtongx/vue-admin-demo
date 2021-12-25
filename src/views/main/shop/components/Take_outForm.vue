@@ -50,7 +50,7 @@ export default {
           },
         ],
       },
-      gestInfo: [],
+      gestInfo: {},
       options: regionData,
       selectedOptions: [],
       addtions: {}, //存储地址数据
@@ -67,12 +67,12 @@ export default {
   methods: {
     // 展示对话框
     showDialog(smallout, gestInfo) {
-      console.log(smallout)
+      // console.log(smallout)
       this.dialogVisible = true
       // this.$set(this.listout.Smallout, null, smallout)
       this.listout.Smallout[0].gid = smallout.GID
       this.listout.Smallout[0].price = smallout.Price
-      this.gestInfo = Object.assign([], gestInfo)
+      this.gestInfo = Object.assign({}, gestInfo)
       this.ruleForm.datailAddress = this.gestInfo.location
     },
     handleClose(done) {
@@ -99,7 +99,7 @@ export default {
             this.tackOut()
             this.gestInfo.borrow = this.gestInfo.borrow - this.getTotalMoney + this.gestInfo.rest
             this.gestInfo.rest = 0
-            console.log(this.gestInfo)
+            this.updateGestInfo()
           }
         })
         .catch(() => {
@@ -112,10 +112,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.gestInfo)
+          // console.log(this.gestInfo)
           this.listout.Location = this.ruleForm.address + this.ruleForm.datailAddress
           this.listout.Smallout[0].gnum = this.ruleForm.gnum
-          console.log(this.listout)
+          // console.log(this.listout)
           if (this.ruleForm.gnum > this.listout.Smallout.GRest) {
             return this.$message.error('货物库存不足')
           } else if (this.getTotalMoney > this.gestInfo.rest) {
@@ -123,10 +123,12 @@ export default {
             return
           } else {
             this.tackOut()
+            this.gestInfo.rest = this.gestInfo.rest - this.getTotalMoney
+            this.updateGestInfo()
           }
           // console.log(this.listout)
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })
@@ -142,6 +144,10 @@ export default {
       } else {
         return this.$message.error(res.message)
       }
+    },
+    async updateGestInfo() {
+      const { data: res } = await this.$http.post('upGesteInfo', this.gestInfo)
+      return this.$message.info(res.message)
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
@@ -164,7 +170,7 @@ export default {
   },
   computed: {
     getTotalMoney() {
-      console.log(this.ruleForm.gnum * this.listout.Smallout[0].price)
+      // console.log(this.ruleForm.gnum * this.listout.Smallout[0].price)
       return this.ruleForm.gnum * this.listout.Smallout[0].price
     },
   },

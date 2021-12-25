@@ -96,10 +96,10 @@ const routes = [
         meta: {
           icon: 'el-icon-s-custom',
           title: '我的',
-          authority: ['user', 'admin'],
+          authority: ['user'],
         },
         name: 'Accounts',
-        component: () => import('@/views/main/home/Home.vue'),
+        component: () => import('@/views/main/account/Account.vue'),
       },
     ],
   },
