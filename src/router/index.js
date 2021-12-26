@@ -39,16 +39,38 @@ const routes = [
         },
         component: () => import('@/views/main/home/Home.vue'),
       },
-      // 用户管理页面
+      // 进货提醒页面
       {
-        path: '/main/users',
+        path: '/main/mingoods',
         meta: {
-          icon: 'team',
-          title: '用户管理',
+          icon: 'el-icon-message-solid',
+          title: '进货提醒',
           authority: ['admin'],
         },
-        name: 'Users',
-        component: () => import('@/views/main/home/Home.vue'),
+        name: 'Mingoods',
+        component: () => import('@/views/main/mingoods/Mingoods.vue'),
+      },
+      // 商品管理页面
+      {
+        path: '/main/mgoods',
+        meta: {
+          icon: 'el-icon-s-goods',
+          title: '商品管理',
+          authority: ['admin'],
+        },
+        name: 'Mgoods',
+        component: () => import('@/views/main/mshop/Mshop.vue'),
+      },
+      // 订单管理页面
+      {
+        path: '/main/morders',
+        meta: {
+          icon: 'el-icon-s-order',
+          title: '订单管理',
+          authority: ['admin'],
+        },
+        name: 'Morders',
+        component: () => import('@/views/main/morder/Moder.vue'),
       },
       // 购物页面
       {

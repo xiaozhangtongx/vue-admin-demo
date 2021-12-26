@@ -48,6 +48,7 @@ export default {
             gid: '',
             gnum: '',
             price: '',
+            grest: '',
           },
         ],
       },
@@ -68,11 +69,12 @@ export default {
   methods: {
     // 展示对话框
     showDialog(smallout, gestInfo) {
-      // console.log(smallout)
+      console.log(smallout)
       this.dialogVisible = true
       // this.$set(this.listout.Smallout, null, smallout)
       this.listout.Smallout[0].gid = smallout.GID
       this.listout.Smallout[0].price = smallout.Price
+      this.listout.Smallout[0].grest = smallout.GRest
       this.gestInfo = Object.assign({}, gestInfo)
       this.ruleForm.datailAddress = this.gestInfo.location
     },
@@ -136,6 +138,8 @@ export default {
     },
     // 提交订单
     async tackOut() {
+      // this.listout.Smallout[0].grest -= this.ruleForm.gnum
+      // console.log(this.listout.Smallout[0].grest)
       const { data: res } = await this.$http.post('stout', this.listout)
       // console.log(this.listout)
       if (res.code == 200) {

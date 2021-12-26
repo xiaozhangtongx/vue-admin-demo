@@ -4,7 +4,7 @@
       <span class="el-dropdown-link">
         <el-avatar src="https://i.gtimg.cn/club/item/face/img/2/16022_100.gif">
         </el-avatar>
-        admin
+        {{uid}}
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -22,7 +22,9 @@
 export default {
   name: '',
   data() {
-    return {}
+    return {
+      uid: this.$store.state.user.uid,
+    }
   },
   methods: {
     handleCommand(command) {

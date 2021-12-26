@@ -92,7 +92,6 @@ export default {
       const { data: res } = await this.$http.get('deletestout?smallid=' + this.infor.smallid)
       this.$router.push('/main/orders')
       if (res.code == 200) {
-        this.listOut = res.obj
         return this.$message.success(res.message)
       } else {
         return this.$message.error(res.message)
