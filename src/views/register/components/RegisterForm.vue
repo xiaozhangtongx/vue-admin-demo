@@ -4,28 +4,30 @@
     <el-form :model="newPwdForm" :rules="newPwdFormRules" ref="newPwdFormRef" style="width:96%">
       <!-- 账号 -->
       <el-form-item prop="uid">
-        <el-input placeholder="请输入您的账号" prefix-icon="el-icon-s-custom" v-model="newPwdForm.uid"
-          autocomplete="off" @keyup.enter.native="focusNext('upward')"></el-input>
+        <el-input placeholder="请输入您的账号" prefix-icon="el-icon-s-custom"
+          v-model.number="newPwdForm.uid" autocomplete="off"
+          @keyup.enter.native="focusNext('upward')"></el-input>
       </el-form-item>
 
       <!-- 密码 -->
       <el-form-item prop="upward">
-        <el-input show-password type="password" prefix-icon="el-icon-lock"
-          v-model="newPwdForm.upward" placeholder="请输入你的密码">
+        <el-input show-password type="password" prefix-icon="el-icon-lock" ref="upward"
+          @keyup.enter.native="focusNext('checkPass')" v-model="newPwdForm.upward"
+          placeholder="请输入你的密码">
         </el-input>
       </el-form-item>
 
       <!-- 确认密码 -->
       <el-form-item prop="checkPass">
-        <el-input show-password type="password" prefix-icon="el-icon-lock"
-          v-model="newPwdForm.checkPass" placeholder="请确认你的密码">
+        <el-input show-password type="password" prefix-icon="el-icon-lock" ref="checkPass"
+          v-model="newPwdForm.checkPass" placeholder="请确认你的密码" @keyup.enter.native="register()">
         </el-input>
       </el-form-item>
 
     </el-form>
     <!-- 内容底部区域 -->
     <span slot="footer" class="dialog-footer">
-      <el-button @click="changePwdDialogVisible = false" type="primary">注 &nbsp;&nbsp;&nbsp; 册
+      <el-button @click="register()" type="primary">注 &nbsp;&nbsp;&nbsp; 册
       </el-button>
     </span>
   </div>
@@ -59,7 +61,7 @@ export default {
     }
     return {
       // 对话框显示
-      changePwdDialogVisible: false,
+      registerDialogVisible: false,
       // 修改密码表单项
       newPwdForm: {
         uid: '',
@@ -68,16 +70,18 @@ export default {
       },
       // 验证规则
       newPwdFormRules: {
+        uid: [
+          { required: true, message: '请输入你的账号', trigger: 'blur' },
+          // { max: 6, message: '长度在4到6个数字', trigger: 'blur', type: 'number' },
+        ],
         upward: [{ validator: validatePass, trigger: 'blur', required: true }],
         checkPass: [{ validator: validatePass2, trigger: 'blur', required: true }],
       },
-      // 原来的密码
-      oldpwd: '',
     }
   },
   methods: {
     // 注册
-    changePwd() {
+    register() {
       this.$refs.newPwdFormRef.validate(async (valid) => {
         console.log(this.newPwdForm)
         if (!valid) return
@@ -86,11 +90,15 @@ export default {
         if (res.code == 200) {
           this.$refs.newPwdFormRef.resetFields() // 重置表单项
           this.$router.replace('/login')
+          return this.$message.success(res.message)
         } else {
           this.$refs.newPwdFormRef.resetFields() // 重置表单项
           return this.$message.error(res.message)
         }
       })
+    },
+    focusNext(nextRef) {
+      this.$refs[nextRef].focus()
     },
   },
 }
